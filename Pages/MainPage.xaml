@@ -1,0 +1,372 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="Pages.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:Bewise="clr-namespace:Bewise.Phone;assembly=Bewise.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:local="clr-namespace:Pages"
+    xmlns:Converters="clr-namespace:Pages.Converters"
+    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="728" 
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait"  Orientation="Portrait"
+    shell:SystemTray.IsVisible="False"
+    
+    BackKeyPress="PhoneApplicationPage_BackKeyPress">
+
+    <toolkit:TransitionService.NavigationInTransition>
+        <toolkit:NavigationInTransition>
+            <toolkit:NavigationInTransition.Backward>
+                <toolkit:TurnstileTransition Mode="BackwardIn"/>
+            </toolkit:NavigationInTransition.Backward>
+            <toolkit:NavigationInTransition.Forward>
+                <toolkit:TurnstileTransition Mode="ForwardIn"/>
+            </toolkit:NavigationInTransition.Forward>
+        </toolkit:NavigationInTransition>
+    </toolkit:TransitionService.NavigationInTransition>
+    <toolkit:TransitionService.NavigationOutTransition>
+        <toolkit:NavigationOutTransition>
+            <toolkit:NavigationOutTransition.Backward>
+                <toolkit:TurnstileTransition Mode="BackwardOut"/>
+            </toolkit:NavigationOutTransition.Backward>
+            <toolkit:NavigationOutTransition.Forward>
+                <toolkit:TurnstileTransition Mode="ForwardOut"/>
+            </toolkit:NavigationOutTransition.Forward>
+        </toolkit:NavigationOutTransition>
+    </toolkit:TransitionService.NavigationOutTransition>
+    <!--xmlns:telerikDataControls="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Data"
+    xmlns:delay="clr-namespace:Delay;assembly=PhonePerformance"
+    xmlns:telerik="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Data"
+    xmlns:telerikPrimitives="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives"-->
+
+
+    <phone:PhoneApplicationPage.Resources>
+        <Converters:ImageURLLargeConverter x:Key="ImageURLLargeConverter" />
+        <Converters:PageNameConverter x:Key="PageNameConverter" />
+        <Converters:ImageCacheConverter x:Key="ImageCacheConverter" />
+        <Converters:ImageCacheLargeConverter x:Key="ImageCacheLargeConverter" />
+        <Converters:ReverseBooleanToVisiblity x:Key="ReverseBooleanToVisiblity" />
+        <Converters:BooleanToVisiblity x:Key="BooleanToVisiblity" />
+        <DataTemplate x:Key="LongListGroupHeader">
+            <Grid Margin="12,0,0,0">
+                <Grid Width="75" Height="75" HorizontalAlignment="Left">
+                    <TextBlock Margin="12,0,1,7" TextWrapping="Wrap" d:LayoutOverrides="Width, Height" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Name}" VerticalAlignment="Bottom"/>
+                    <Border BorderThickness="1">
+                        <Border.BorderBrush>
+                            <SolidColorBrush Color="{StaticResource PhoneAccentColor}"/>
+                        </Border.BorderBrush>
+                    </Border>
+                </Grid>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="LongListGroupItemTemplate">
+            <Border Background="{Binding GroupBackgroundBrush}" Width="99" Height="99" Margin="6" IsHitTestVisible="{Binding HasItems}">
+                <TextBlock Text="{Binding Name}"
+                                   FontFamily="{StaticResource PhoneFontFamilySemiBold}"
+                                   FontSize="36"
+                                   Margin="{StaticResource PhoneTouchTargetOverhang}"
+                                   Foreground="{StaticResource PhoneForegroundBrush}"
+                                   VerticalAlignment="Bottom"/>
+            </Border>
+        </DataTemplate>
+
+    </phone:PhoneApplicationPage.Resources>
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="White">
+ 
+        <Grid.Resources>
+            <DataTemplate x:Key="GroupPickerItemTemplate">
+                <Border Background="{Binding GroupBackgroundBrush}" Width="99" Height="99" Margin="6"
+                                IsHitTestVisible="{Binding HasItems}">
+                    <TextBlock Text="{Binding Title}"
+                            Style="{StaticResource PhoneTextExtraLargeStyle}"
+                            Margin="{StaticResource PhoneTouchTargetOverhang}"
+                            Foreground="{StaticResource PhoneForegroundBrush}"
+                            VerticalAlignment="Bottom"/>
+                </Border>
+            </DataTemplate>
+
+            <!--<Style TargetType="telerikPrimitives:RadDataBoundListBoxItem" x:Key="ItemContainerStyle">
+                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            </Style>
+            <Style TargetType="telerikJumpList:JumpListGroupPickerItem" x:Key="GroupPickerItemStyle">
+                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                <Setter Property="Margin" Value="6"/>
+            </Style>-->
+        </Grid.Resources>
+        <!--Panorama control-->
+        <controls:Panorama Title="pages" Foreground="#d8302c" x:Name="PnmPages" SelectionChanged="PnmPages_SelectionChanged">
+            <!--<controls:Panorama.Background>
+                <ImageBrush ImageSource="/Static/Images/mainbg1.jpg" />
+            </controls:Panorama.Background>-->
+
+            <controls:PanoramaItem Header="all">
+                <!--Double line list with image placeholder and text wrapping-->
+
+                <Grid>
+                    <StackPanel x:Name="pnlProgress"  Margin="0,150,0,0" Visibility="Collapsed" >
+                        <!--<StackPanel x:Name="pnlProgress"  VerticalAlignment="Center" Visibility="{Binding IsDataLoaded, Converter={StaticResource ReverseBooleanToVisiblity}}" >-->
+                        <TextBlock FontSize="32" HorizontalAlignment="Center" Text="Loading..." Foreground="Black" />
+                        <toolkit:PerformanceProgressBar x:Name="progressBar" IsIndeterminate="True" />
+                        <!--<ProgressBar x:Name="progressBar" IsIndeterminate="True" />-->
+                    </StackPanel>
+                    <!--<telerik:RadJumpList VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="6,6"
+                            Name="longListSelectorVaultEntries"
+                            ItemsSource="{Binding Pages}"
+                            SelectionChanged="longListSelectorVaultEntries_SelectionChanged"              >
+
+                        <telerik:RadJumpList.GroupPickerItemsPanel>
+                            <ItemsPanelTemplate>
+                                <toolkit:WrapPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </telerik:RadJumpList.GroupPickerItemsPanel>
+
+                        <telerik:RadJumpList.GroupPickerItemTemplate>
+                            <DataTemplate>
+                                <Border Background="{Binding GroupBackgroundBrush}" Width="99" Height="99" Margin="6"
+                                    IsHitTestVisible="{Binding HasItems}">
+                                    <TextBlock Text="{Binding Title}"
+                                Style="{StaticResource PhoneTextExtraLargeStyle}"
+                                Margin="{StaticResource PhoneTouchTargetOverhang}"
+                                Foreground="{StaticResource PhoneForegroundBrush}"
+                                VerticalAlignment="Bottom"/>
+                                </Border>
+                            </DataTemplate>
+                        </telerik:RadJumpList.GroupPickerItemTemplate>
+
+                        <telerik:RadJumpList.GroupHeaderTemplate>
+                        <DataTemplate>
+                            <Border Background="Transparent" Margin="0,0,0,10">
+                                <Border 
+                                    Background="{StaticResource PhoneAccentBrush}"
+                                    Width="55" Height="55" HorizontalAlignment="Left">
+                                    <TextBlock Text="{Binding Title}"
+                                Foreground="White"
+                                FontSize="36"
+                                Margin="5"
+                                VerticalAlignment="Bottom" />
+                                </Border>
+                            </Border>
+                        </DataTemplate>
+                        </telerik:RadJumpList.GroupHeaderTemplate>
+
+
+                        <telerik:RadJumpList.ItemTemplate>
+                            <DataTemplate>
+
+                                <local:ListItem Data="{Binding}" >
+                                    <toolkit:ContextMenuService.ContextMenu>
+                                        <toolkit:ContextMenu>
+                                            <toolkit:MenuItem Header="pin to start"  Click="MenuItem_Click"/>
+                                        </toolkit:ContextMenu>
+                                    </toolkit:ContextMenuService.ContextMenu>
+                                
+                                </local:ListItem>
+                            
+                            </DataTemplate>
+                        </telerik:RadJumpList.ItemTemplate>
+
+
+
+                    </telerik:RadJumpList>-->
+                    <toolkit:LongListSelector VerticalAlignment="Stretch" VirtualizingStackPanel.VirtualizationMode="Recycling" HorizontalAlignment="Stretch" Margin="6,6"
+                            Name="longListSelectorVaultEntries"
+                            IsFlatList="False"
+                            ItemsSource="{Binding Pages}"
+                            SelectionChanged="longListSelectorVaultEntries_SelectionChanged"              >
+
+                        <toolkit:LongListSelector.GroupItemsPanel>
+                            <ItemsPanelTemplate>
+                                <toolkit:WrapPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </toolkit:LongListSelector.GroupItemsPanel>
+
+                        <toolkit:LongListSelector.GroupItemTemplate>
+                            <DataTemplate>
+                                <Border Background="{Binding GroupBackgroundBrush}" Width="99" Height="99" Margin="6"
+                                IsHitTestVisible="{Binding HasItems}">
+                                    <TextBlock Text="{Binding Title}"
+                            Style="{StaticResource PhoneTextExtraLargeStyle}"
+                            Margin="{StaticResource PhoneTouchTargetOverhang}"
+                            Foreground="{StaticResource PhoneForegroundBrush}"
+                            VerticalAlignment="Bottom"/>
+                                </Border>
+                            </DataTemplate>
+                        </toolkit:LongListSelector.GroupItemTemplate>
+
+                        <toolkit:LongListSelector.GroupHeaderTemplate>
+                            <DataTemplate>
+                                <Border Background="Transparent" Margin="0,10,0,10">
+                                    <!--<Border 
+                                    Background="#d8302c"
+                                    Width="55" Height="55" HorizontalAlignment="Left">
+                                        <TextBlock Text="{Binding Title}"
+                                Foreground="White"
+                                FontSize="36"
+                                Margin="5"
+                                VerticalAlignment="Bottom" 
+                                    </Border>/>-->
+                                    <Border 
+                                    Background="{StaticResource PhoneAccentBrush}"
+                                    Width="55" Height="55" HorizontalAlignment="Left">
+                                        <TextBlock Text="{Binding Title}"
+                                Foreground="White"
+                                FontSize="36"
+                                Margin="5"
+                                VerticalAlignment="Bottom" />
+                                    </Border>
+                                </Border>
+                            </DataTemplate>
+                        </toolkit:LongListSelector.GroupHeaderTemplate>
+
+
+                        <toolkit:LongListSelector.ItemTemplate>
+                            <DataTemplate>
+
+                                <local:ListItem Data="{Binding}" Foreground="Black" ManipulationStarted="UIElement_ManipulationStarted" ManipulationCompleted="UIElement_ManipulationCompleted"  >
+                                    <toolkit:ContextMenuService.ContextMenu>
+                                        <toolkit:ContextMenu>
+                                            <toolkit:MenuItem Header="pin to start"  Click="MenuItem_Click"/>
+                                        </toolkit:ContextMenu>
+                                    </toolkit:ContextMenuService.ContextMenu>
+
+                                </local:ListItem>
+
+                            </DataTemplate>
+                        </toolkit:LongListSelector.ItemTemplate>
+
+
+
+                    </toolkit:LongListSelector>
+
+
+                    <!--<ListBox Margin="0,0,-12,0" ItemsSource="{Binding Pages}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+
+                                <Image Source="{Binding ImageURL, Converter={StaticResource ImageCacheConverter}}" Width="60" Height="60" />
+                                <TextBlock Text="{Binding Name, Converter={StaticResource PageNameConverter}}" Width="380" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>-->
+                    <TextBlock x:Name="txtNoAllPosts" Visibility="Collapsed" Text="It's lonely here. You can search and add pages to this list." TextWrapping="Wrap" Margin="10,0" FontSize="32" />
+                </Grid>
+            </controls:PanoramaItem>
+
+            <!--Panorama item one-->
+            <controls:PanoramaItem Header="recent" Width="750" Orientation="Horizontal">
+                
+                <Grid>
+
+                    <TextBlock x:Name="txtLoadingRecent" Visibility="{Binding IsRecentDataLoaded,Converter= {StaticResource ReverseBooleanToVisiblity}}" Text="Loading..." FontSize="32" Height="60" Margin="130,140,0,150" Foreground="Black" />
+
+                    <ListBox x:Name="lsbRecent" Margin="0,0,0,0" Height="360" ItemsSource="{Binding Recent}" VerticalAlignment="Top" >
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <toolkit:WrapPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.Template>
+                        <ControlTemplate>
+                            <ItemsPresenter />
+                        </ControlTemplate>
+                    </ListBox.Template>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Bewise:TileButton Click="TileButton_Click" ImageSource="{Binding Id, Converter={StaticResource ImageCacheLargeConverter}}" Text="{Binding Name}" Margin="5" >
+                                    <toolkit:ContextMenuService.ContextMenu>
+                                        <toolkit:ContextMenu>
+                                            <toolkit:MenuItem Header="pin to start"  Click="MenuItem_Click"/>
+                                        </toolkit:ContextMenu>
+                                    </toolkit:ContextMenuService.ContextMenu>
+
+                                </Bewise:TileButton>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                    <TextBlock x:Name="txtNoRecentPages" Visibility="Collapsed" Text="It's lonely here. You can search and add pages to this list." TextWrapping="Wrap" Margin="10,0" FontSize="32" />
+
+                </Grid>
+            </controls:PanoramaItem>
+ 
+            <!--Panorama item two-->
+            <!--Use 'Orientation="Horizontal"' to enable a panel that lays out horizontally-->
+            
+            <controls:PanoramaItem Header="featured">
+                <!--Double line list with image placeholder and text wrapping-->
+
+                <Grid>
+
+                    <TextBlock x:Name="txtLoadingFeatured" Visibility="{Binding IsFeaturedDataLoaded,Converter= {StaticResource ReverseBooleanToVisiblity}}" Text="Loading..." FontSize="32" Height="60" Margin="120,120,0,150" />
+                    <ScrollViewer>
+                        <ListBox x:Name="lsbFeatured" Margin="0,0,0,0"  ItemsSource="{Binding Featured}" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Auto" >
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <toolkit:WrapPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.Template>
+                        <ControlTemplate>
+                            <ItemsPresenter />
+                        </ControlTemplate>
+                    </ListBox.Template>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                    <Bewise:TileButton Click="TileButton_Click" ImageSource="{Binding Id, Converter={StaticResource ImageCacheLargeConverter}}" Text="{Binding Name}" Margin="5" >
+                                    <toolkit:ContextMenuService.ContextMenu>
+                                        <toolkit:ContextMenu>
+                                            <toolkit:MenuItem Header="pin to start"  Click="MenuItem_Click"/>
+                                        </toolkit:ContextMenu>
+                                    </toolkit:ContextMenuService.ContextMenu>
+
+                                </Bewise:TileButton>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                    </ListBox>
+                    </ScrollViewer>
+                </Grid>
+            </controls:PanoramaItem>
+
+        </controls:Panorama>
+
+        
+
+        <toolkit:PerformanceProgressBar x:Name="progressBarNew" Margin="0,10" IsIndeterminate="True" VerticalAlignment="Top" Visibility="{Binding IsNewDataLoading, Converter={StaticResource BooleanToVisiblity}}" />
+        <toolkit:PerformanceProgressBar x:Name="progressBarFeatured" Margin="0,10" IsIndeterminate="True" VerticalAlignment="Top" Visibility="Collapsed" />
+
+    </Grid>
+
+
+    <phone:PhoneApplicationPage.ApplicationBar >
+        <shell:ApplicationBar x:Name="appbar" ForegroundColor="White" BackgroundColor="#d8302c" IsVisible="True" IsMenuEnabled="True">
+
+            <shell:ApplicationBarIconButton x:Name="barSearch" IconUri="/Static/AppBarIcons/appbar.feature.search.rest.png" Text="search" Click="barSearch_Click" />
+            <!--<shell:ApplicationBarIconButton x:Name="barRefresh" IconUri="/Static/AppBarIcons/appbar.refresh.rest.png" Text="refresh" Click="barRefresh_Click" />-->
+
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem x:Name="menuLogout" Text="logout" Click="menuLogout_Click"/>
+                <shell:ApplicationBarMenuItem x:Name="menuReview" Text="rate and review" Click="menuReview_Click"/>
+                <shell:ApplicationBarMenuItem x:Name="menuFeedback" Text="send feedback" Click="menuFeedback_Click"/>
+                <!--<shell:ApplicationBarMenuItem x:Name="menuShowLog" Text="show log" Click="menuShowLog_Click"/>
+                <shell:ApplicationBarMenuItem x:Name="menuClearLog" Text="clear log" Click="menuClearLog_Click"/>-->
+
+            </shell:ApplicationBar.MenuItems>
+        
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+
+</phone:PhoneApplicationPage>

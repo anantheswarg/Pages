@@ -1,0 +1,9 @@
+<MarketplaceDetails>
+  <SmallAppTile>
+  </SmallAppTile>
+  <LargeAppTile>icon_173x173.png</LargeAppTile>
+  <PCAppTile>icon_512x512 - Copy.png</PCAppTile>
+  <ScreenShots>home.png;Login.png;all.png;photo.png;recent.png;search.png;wall.png;info.png;</ScreenShots>
+  <ScreenShotsWXGA>;;;;;;;;</ScreenShotsWXGA>
+  <ScreenShots720P>;;;;;;;;</ScreenShots720P>
+</MarketplaceDetails>

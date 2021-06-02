@@ -1,0 +1,28 @@
+﻿<UserControl x:Class="Pages.Controls.CommentsUserControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:contribControls="clr-namespace:WP7Contrib.View.Controls;assembly=WP7Contrib.View.Controls"
+    xmlns:Converters="clr-namespace:Pages.Converters"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DesignHeight="480" d:DesignWidth="480">
+    <UserControl.Resources>
+        <Converters:DateTimeToTextConverter x:Key="DateTimeToTextConverter" />
+        <Converters:ImageCacheConverter x:Key="ImageCacheConverter" />
+
+    </UserControl.Resources>
+    <Grid x:Name="LayoutRoot"  >
+
+        <StackPanel >
+            <TextBlock Text="{Binding From}" FontSize="24" Foreground="Black" />
+            <TextBlock Text="{Binding Created_time, Converter= {StaticResource DateTimeToTextConverter}}" FontSize="16"   Margin="0,0,0,5" Foreground="Gray" />
+            <TextBlock x:Name="txtMessage" Text="{Binding Message}" Foreground="Black" TextWrapping="Wrap" Margin="0,0,0,10"/>
+
+        </StackPanel> 
+
+    </Grid>
+</UserControl>

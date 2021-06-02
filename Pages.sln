@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pages", "Pages\Pages.csproj", "{076B0226-112A-4564-94C6-A4BE59044740}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiveTilesAgent", "LiveTilesAgent\LiveTilesAgent.csproj", "{AAAFF776-CA8A-415E-81CA-7A80C0FD3E01}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pages.Model", "Pages.Model\Pages.Model.csproj", "{303B9B44-2D42-4140-8DC5-574E0062CD6F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Agent.Model", "Agent.Model\Agent.Model.csproj", "{80039CE8-9FE5-477D-9A6D-270756A8EAED}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{076B0226-112A-4564-94C6-A4BE59044740}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{076B0226-112A-4564-94C6-A4BE59044740}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{076B0226-112A-4564-94C6-A4BE59044740}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{076B0226-112A-4564-94C6-A4BE59044740}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{076B0226-112A-4564-94C6-A4BE59044740}.Release|Any CPU.Build.0 = Release|Any CPU
+		{076B0226-112A-4564-94C6-A4BE59044740}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{AAAFF776-CA8A-415E-81CA-7A80C0FD3E01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAAFF776-CA8A-415E-81CA-7A80C0FD3E01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAAFF776-CA8A-415E-81CA-7A80C0FD3E01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAAFF776-CA8A-415E-81CA-7A80C0FD3E01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{303B9B44-2D42-4140-8DC5-574E0062CD6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{303B9B44-2D42-4140-8DC5-574E0062CD6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{303B9B44-2D42-4140-8DC5-574E0062CD6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{303B9B44-2D42-4140-8DC5-574E0062CD6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80039CE8-9FE5-477D-9A6D-270756A8EAED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80039CE8-9FE5-477D-9A6D-270756A8EAED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80039CE8-9FE5-477D-9A6D-270756A8EAED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80039CE8-9FE5-477D-9A6D-270756A8EAED}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

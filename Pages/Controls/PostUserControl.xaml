@@ -1,0 +1,119 @@
+﻿<UserControl x:Class="Pages.Controls.PostUserControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:contribControls="clr-namespace:WP7Contrib.View.Controls;assembly=WP7Contrib.View.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Converters="clr-namespace:Pages.Converters"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DesignHeight="480" d:DesignWidth="480">
+
+    <Grid x:Name="LayoutRoot" >
+        <Grid.Resources>
+            <Converters:UpperCaseConverer x:Key="UpperCaseConverer" />
+            <Converters:ReverseBooleanToVisiblity x:Key="ReverseBooleanToVisiblity" />
+            <Converters:AlbumNameConverter x:Key="AlbumNameConverter" />
+            <Converters:StringToVisiblity x:Key="StringToVisiblity" />
+            <Converters:CountToVisiblity x:Key="CountToVisiblity" />
+            <Converters:CommentCountToString x:Key="CommentCountToString" />
+            <Converters:LikeCountToString x:Key="LikeCountToString" />
+            <Converters:DateTimeToTextConverter x:Key="DateTimeToTextConverter" />
+            <Converters:BooleanToVisiblity x:Key="BooleanToVisiblity" />
+
+            <Style TargetType="ScrollViewer">
+                <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+                <Setter Property="HorizontalScrollBarVisibility" Value="Auto"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="BorderBrush" Value="Transparent"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ScrollViewer">
+                            <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="ScrollStates">
+                                        <VisualStateGroup.Transitions>
+                                            <VisualTransition GeneratedDuration="00:00:00.5"/>
+                                        </VisualStateGroup.Transitions>
+                                        <VisualState x:Name="Scrolling">
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="VerticalScrollBar" Storyboard.TargetProperty="Opacity" To="1" Duration="0"/>
+                                                <DoubleAnimation Storyboard.TargetName="HorizontalScrollBar" Storyboard.TargetProperty="Opacity" To="1" Duration="0"/>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="NotScrolling">
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                    <VisualStateGroup x:Name="VerticalCompression">
+                                        <VisualState x:Name="NoVerticalCompression"/>
+                                        <VisualState x:Name="CompressionTop"/>
+                                        <VisualState x:Name="CompressionBottom"/>
+                                    </VisualStateGroup>
+                                    <VisualStateGroup x:Name="HorizontalCompression">
+                                        <VisualState x:Name="NoHorizontalCompression"/>
+                                        <VisualState x:Name="CompressionLeft"/>
+                                        <VisualState x:Name="CompressionRight"/>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <Grid Margin="{TemplateBinding Padding}">
+                                    <ScrollContentPresenter x:Name="ScrollContentPresenter" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"/>
+                                    <ScrollBar x:Name="VerticalScrollBar" IsHitTestVisible="False" Height="Auto" Width="5" HorizontalAlignment="Right" VerticalAlignment="Stretch" Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" IsTabStop="False" Maximum="{TemplateBinding ScrollableHeight}" Minimum="0" Value="{TemplateBinding VerticalOffset}" Orientation="Vertical" ViewportSize="{TemplateBinding ViewportHeight}" />
+                                    <ScrollBar x:Name="HorizontalScrollBar" IsHitTestVisible="False" Width="Auto" Height="5" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}" IsTabStop="False" Maximum="{TemplateBinding ScrollableWidth}" Minimum="0" Value="{TemplateBinding HorizontalOffset}" Orientation="Horizontal" ViewportSize="{TemplateBinding ViewportWidth}" />
+                                </Grid>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+        </Grid.Resources>
+        
+        <ListBox x:Name="lsbPosts" Grid.Row="0" ItemsSource="{Binding Posts}" SelectionChanged="lsbPosts_SelectionChanged"  >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="10,0,10,15" >
+
+                        <StackPanel ManipulationCompleted="StackPanel_ManipulationCompleted" ManipulationStarted="StackPanel_ManipulationStarted" >
+
+                            <TextBlock x:Name="txtFrom" Text="{Binding From}" FontSize="32" Foreground="#d8302c" />
+                            <TextBlock Text="{Binding Created_time, Converter= {StaticResource DateTimeToTextConverter}}" FontSize="16" Foreground="Gray"  Margin="0,0,0,10" />
+
+                            <TextBlock x:Name="txtMessage" Text="{Binding Message}" Foreground="Black"  TextWrapping="Wrap" Visibility="{Binding Message, Converter={StaticResource StringToVisiblity}}"/>
+                            <TextBlock x:Name="txtStory" Text="{Binding Story}" TextWrapping="Wrap" Foreground="Black" Visibility="{Binding Story, Converter={StaticResource StringToVisiblity}}"/>
+                        </StackPanel>
+
+                        <TextBlock x:Name="txtLinkName" Text="{Binding Name}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap" Visibility="{Binding Name, Converter={StaticResource StringToVisiblity}}" MouseLeftButtonDown="txtLinkName_MouseLeftButtonDown" />
+                        <Grid Visibility="{Binding Picture, Converter={StaticResource StringToVisiblity}}"  >
+                            <Rectangle Fill="{StaticResource PhoneChromeBrush}" Width="80" Height="80" HorizontalAlignment="Left"  Margin="0,10,0,0" />
+                            <Image x:Name="imgPost" Source="{Binding Picture}" Height="80" Width="80" Stretch="UniformToFill" HorizontalAlignment="Left"  Margin="0,10,0,0" MouseLeftButtonDown="imgPost_MouseLeftButtonDown" />
+                        </Grid>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0" >
+
+                            <StackPanel Orientation="Horizontal" Margin="0,0,20,0" Visibility="{Binding Comments, Converter={StaticResource CountToVisiblity}}">
+                                <Image Source="/Static/Images/comment.png" Margin="0,0,5,0" />
+                                <TextBlock Text="{Binding Comments, Converter={StaticResource CommentCountToString}}" FontSize="18" Foreground="Black" />
+
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Static/Images/like.png" Margin="0,0,5,0" Visibility="{Binding Likes, Converter={StaticResource CountToVisiblity}}" />
+                                <TextBlock Text="{Binding Likes, Converter={StaticResource LikeCountToString}}" FontSize="18" Foreground="Black"/>
+
+                            </StackPanel>
+
+                        </StackPanel>
+
+
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+         
+    </Grid>
+</UserControl>
